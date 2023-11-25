@@ -2,7 +2,6 @@
 import tkinter as tk
 from tkinter import ttk 
 
-# Import tkinter.Tk and widgets 
 from tkinter import Tk, font
 from tkinter.simpledialog import *
 from tkinter.messagebox import *
@@ -31,18 +30,6 @@ def get_symbol(base, quote): return f'{base}/{quote}:{quote}'
 def get_symbolId(base, quote): return securities.loc[get_symbol(base, quote)].id
 
 def close_position(symbolId, type = 'market'):
-    # base = 'SOL'
-    # quote = 'USDT'
-    # symbolId = get_symbol(base, quote)
-    # if symbolId is None: 
-    #     symbolId = get_symbolId(base, quote)
-    # else:
-    #     base, quote = securities[securities.id==symbolId][['base','quote']].iloc[0].values
-
-    # exchange.futuresPrivateGetStopOrders()
-    # exchange.futuresPrivateDeleteStopOrders()
-    # exchange.positions
-    # exchange.cancelAllOrders(symbol, {'stop':True});
     position = get_position(symbolId)
 
     opposite_side = 'sell' if position['currentQty'] > 0 else 'buy'
@@ -54,13 +41,9 @@ def close_all_positions():
     for symbolId in [x['symbol'] for x in exchange.futuresPrivateGetPositions(params={})['data']]: close_position(symbolId=symbolId)
 
 def get_position(symbolId): 
-    # symbol_id = get_symbolId(base, quote)
     return [x for x in exchange.futuresPrivateGetPositions(params={'symbol': symbolId})['data']  if x['symbol'] == symbolId][0]
 
 def openPosition(symbolId, direction=None, stopLossPrice=None, type = 'market'):
-    # base = 'SOL'
-    # quote = 'USDT'
-    # symbolId = f'{base}/{quote}:{quote}'
     ticker = exchange.fetchTicker(symbolId)
     current_price = ticker['last']
     risk = 100.0
@@ -93,12 +76,6 @@ def openPosition(symbolId, direction=None, stopLossPrice=None, type = 'market'):
 
     price = current_price
 
-    # pprint(dict(price=price, stopLossPrice=stopLossPrice, takeProfitPrice=takeProfitPrice, stop_range=stop_range, size=size, total=size * price * leverage))
-    # symbol
-    #####
-
-
-    # clientOid = uuid.uuid4()
 
     params = {
         'leverage': leverage,
@@ -208,8 +185,6 @@ def evOpenPosition(event):
         return
     
     direction = 1 - 2 * (event.keysym == 's')
-    # print(direction)
-    # pprint(event)
 
     sl = askfloat("Stoploss", "Please enter stoploss price")
     print(sl)
@@ -219,10 +194,6 @@ def evOpenPosition(event):
     else:
         return
 
-    # v = askinteger("Change leverage", "New leverage", initialvalue=varLeverage.get())
-    # if v != None:
-    #     print(v)
-    #     varLeverage.set(v)
 
 root.bind('<Alt-l>', evOpenPosition)
 root.bind('<Alt-s>', evOpenPosition)
@@ -237,10 +208,6 @@ def evClosePosition(event):
         close_position(symbolId=varSymbol.get())
     else:
         return
-    # v = askinteger("Change leverage", "New leverage", initialvalue=varLeverage.get())
-    # if v != None:
-    #     print(v)
-    #     varLeverage.set(v)
 
 root.bind('<Alt-c>', evClosePosition)
 
