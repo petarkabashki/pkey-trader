@@ -1,0 +1,5 @@
+api_config.py
+ccxt
+ccxt-github
+.vscode
+__pycache__
