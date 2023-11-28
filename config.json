@@ -1,1 +1,1 @@
-{"symConfigs": {"ETHUSDTM": {"LONG_SL": 2020.0, "LEVERAGE": 11.0, "SHORT_SL": 3300.0}}}
+{"symConfigs": {"ETHUSDTM": {"LONG_SL": 1000.0, "SHORT_SL": 2000.0, "LEVERAGE": 11.0}, "ADAUSDT": {"SHORT_SL": 200.0, "LONG_SL": 2.0, "LEVERAGE": 2.0}}}
